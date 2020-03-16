@@ -1,0 +1,90 @@
+FORMAT: 1A
+HOST: http://localhost:3000
+
+# bossabackend
+
+It's an API for creating a list of tools with github references in order to keep track of anything 
+that can be useful for software development.
+
+## Tools Collection [/apps]
+
+### List All Tools/Apps [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 56,
+                "name": "hotel",
+                "link": "https://github.com/typicode/hotel",
+                "description": "Local app manager. Start apps within your browser, developer tool with local .localhost domain and https out of the box.",
+                "tags": [
+                    "node",
+                    "organizing",
+                    "webapps",
+                    "domain",
+                    "developer",
+                    "https",
+                    "proxy"
+                ]
+            },
+            {
+                "id": 57,
+                "name": "fastify",
+                "link": "https://www.fastify.io/",
+                "description": "Extremely fast and simple, low-overhead web framework for NodeJS. Supports HTTP2.",
+                "tags": [
+                    "node",
+                    "https",
+                    "web",
+                    "framework",
+                    "http2",
+                    "localhost"
+                ]
+            }
+        ]
+
+### Add a New Tool/App [POST]
+
+You may add more tools using this action. It takes a JSON
+object containing the name, link and description for the tool and tags you judge related to the topic.
+
++ Request (application/json)
+
+        {
+                title: "json-server",
+                link: "https://github.com/typicode/json-server",
+                description: "Fake REST API based on a json schema. Useful for mocking and creating APIs for front-end devs to consume in coding challenges.",
+                tags: [
+                    "api",
+                    "json",
+                    "schema",
+                    "node",
+                    "github",
+                    "rest"
+                ]
+            }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "question": "Favourite programming language?",
+                "published_at": "2015-08-05T08:40:51.620Z",
+                "choices": [
+                    {
+                        "choice": "Swift",
+                        "votes": 0
+                    }, {
+                        "choice": "Python",
+                        "votes": 0
+                    }, {
+                        "choice": "Objective-C",
+                        "votes": 0
+                    }, {
+                        "choice": "Ruby",
+                        "votes": 0
+                    }
+                ]
+            }
