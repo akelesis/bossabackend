@@ -15,3 +15,5 @@ consign()
 app.listen(PORT, () => {
     console.log('App Runing on port ' + PORT)
 })
+
+module.exports = app

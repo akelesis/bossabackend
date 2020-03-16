@@ -9,29 +9,27 @@ module.exports = app => {
 
         const appTags = post.tags
         
-        app.db('app')
-            .insert(appData)
-            .then(response => {
-                appTags.forEach(async element => {
-                    const tagFromDB = await app.db('tag').where({name: element}).first()
-                    if(!tagFromDB){
-                        app.db('tag')
-                            .insert({name: element})
-                            .then(resp => {
-                                app.db('app_tag')
-                                    .insert({idapp: response, idtag: resp})
-                                    .catch(err => console.log(err))
-                            })
+        const idRepo = await app.db('app').insert(appData)
+
+            appTags.forEach(async element => {
+                const tagFromDB = await app.db('tag').where({name: element}).first()
+                if(!tagFromDB){
+                    app.db('tag')
+                        .insert({name: element})
+                        .then(resp => {
+                            app.db('app_tag')
+                                .insert({idapp: idRepo, idtag: resp})
+                                .catch(err => console.log(err))
+                        })
                     }
                     else{
                         app.db('app_tag')
-                            .insert({idapp: response, idtag: tagFromDB.id})
-                            .catch(err => console.log(err))
+                            .insert({idapp: idRepo, idtag: tagFromDB.id})
+                            .catch(err => res.status(500).send(err))
                     }
                 })
-            })
-            .then(_ => res.status(201).send())
-            .catch(err => res.status(500).send(err))
+                
+            res.status(201).send(idRepo)
 
     }
 
